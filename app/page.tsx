@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { MenuIcon, ArrowDown, Star, ChevronLeft, ChevronRight } from "lucide-react"
+import { MenuIcon, ArrowDown, Star, ChevronLeft, ChevronRight, PlayCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import { ImageWithBlur } from "@/components/image-with-blur" // Import ImageWithBlur component
 
@@ -31,6 +31,24 @@ interface Activity {
   type: "image" | "video"
   src: string
   thumbnail?: string // Added for video thumbnails
+}
+
+interface UmkmDetail {
+  name: string
+  activities: Activity[] // Akan berisi foto dan video terkait UMKM ini
+}
+
+interface UmkmGroup {
+  rw: string
+  umkms: UmkmDetail[]
+}
+
+interface OutputActivity {
+  title: string
+  author: string
+  date: string
+  content: string
+  images: { src: string; alt: string }[]
 }
 
 export default function Component() {
@@ -94,10 +112,10 @@ export default function Component() {
   ]
 
   const umkmPreviewImages = [
-    { src: "/images/umkm-previews/form-pendaftaran.png", alt: "Form Pendaftaran UMKM" },
-    { src: "/images/umkm-previews/laporan-statistik.png", alt: "Laporan & Statistik UMKM" },
-    { src: "/images/umkm-previews/kelola-data.png", alt: "Kelola Data UMKM" },
-    { src: "/images/umkm-dashboard-preview.png", alt: "Dashboard Sistem UMKM" },
+    { src: "/images/umkm-previews/dashboard-new.png", alt: "Dashboard Sistem Pendataan UMKM" },
+    { src: "/images/umkm-previews/kelola-data-new.png", alt: "Kelola Data UMKM" },
+    { src: "/images/umkm-previews/laporan-statistik-new.png", alt: "Laporan & Statistik UMKM" },
+    { src: "/images/umkm-previews/login-page.png", alt: "Halaman Login Sistem UMKM" },
   ]
 
   const members: Member[] = [
@@ -194,86 +212,788 @@ export default function Component() {
     },
   ]
 
-  const umkmDigitalAndBookkeepingActivities: Activity[] = [
+  const umkmData: UmkmGroup[] = [
     {
-      title: "Kegiatan Diskusi Pendataan",
-      description: "Diskusi awal mengenai kebutuhan dan proses pendataan digital UMKM.",
-      type: "image",
-      src: "/images/activities/discussion-with-locals-1.jpeg",
+      rw: "01",
+      umkms: [
+        {
+          name: "Kebab Ali Baba",
+          activities: [
+            {
+              title: "Diskusi Pendampingan UMKM",
+              description:
+                "Mahasiswa berdiskusi dengan pemilik Kebab Ali Baba mengenai pendataan digital dan pembukuan.",
+              type: "image",
+              src: "/images/umkm-activities/kebab-ali-baba-discussion-1.jpeg",
+            },
+            {
+              title: "Sesi Tanya Jawab",
+              description: "Sesi interaktif antara tim KKN dan pemilik UMKM untuk memahami kebutuhan dan tantangan.",
+              type: "image",
+              src: "/images/umkm-activities/kebab-ali-baba-discussion-2.jpeg",
+            },
+            {
+              title: "Tampilan Depan Kebab Ali Baba",
+              description: "Foto eksterior Kebab Ali Baba, salah satu UMKM yang didampingi.",
+              type: "image",
+              src: "/images/umkm-activities/kebab-ali-baba-storefront.jpeg",
+            },
+            {
+              title: "Foto Bersama Tim KKN dan Pemilik",
+              description: "Tim KKN berfoto bersama pemilik Kebab Ali Baba setelah sesi pendampingan.",
+              type: "image",
+              src: "/images/umkm-activities/kebab-ali-baba-group-photo.jpeg",
+            },
+            // Removed the problematic image entry
+            {
+              title: "Video Diskusi Pendampingan",
+              description: "Video dokumentasi sesi diskusi pendampingan UMKM Kebab Ali Baba.",
+              type: "video",
+              src: "/videos/kebab-ali-baba-discussion-1.mp4",
+              thumbnail: "/images/umkm-activities/kebab-ali-baba-discussion-1.jpeg",
+            },
+            {
+              title: "Video Review Dokumen",
+              description: "Video saat tim KKN dan pemilik UMKM meninjau dokumen pendataan.",
+              type: "video",
+              src: "/videos/kebab-ali-baba-discussion-2.mp4",
+              thumbnail: "/images/umkm-activities/kebab-ali-baba-document-review.jpeg",
+            },
+          ],
+        },
+        {
+          name: "Sylma Collection",
+          activities: [
+            {
+              title: "Foto Bersama Tim KKN dan Pemilik Sylma Collection",
+              description: "Tim KKN berfoto bersama pemilik usaha Sylma Collection setelah sesi pendampingan.",
+              type: "image",
+              src: "/images/umkm-activities/sylma-collection-group-photo-1.jpeg",
+            },
+            {
+              title: "Diskusi Pendampingan UMKM",
+              description:
+                "Mahasiswa berdiskusi dengan pemilik Sylma Collection mengenai pendataan digital dan pembukuan.",
+              type: "image",
+              src: "/images/umkm-activities/sylma-collection-discussion-1.jpeg",
+            },
+            {
+              title: "Presentasi Brosur Pendataan",
+              description: "Mahasiswa menjelaskan materi pendataan digital menggunakan brosur kepada pemilik UMKM.",
+              type: "image",
+              src: "/images/umkm-activities/sylma-collection-brochure-presentation-1.jpeg",
+            },
+            {
+              title: "Demonstrasi Penggunaan Tablet",
+              description: "Mahasiswa mendemonstrasikan penggunaan sistem digital melalui tablet kepada pemilik UMKM.",
+              type: "image",
+              src: "/images/umkm-activities/sylma-collection-tablet-demonstration-1.jpeg",
+            },
+            {
+              title: "Foto Bersama Tim KKN dan Pemilik (Pose Salam)",
+              description: "Tim KKN dan pemilik Sylma Collection berfoto bersama dengan pose salam.",
+              type: "image",
+              src: "/images/umkm-activities/sylma-collection-group-photo-2.jpeg",
+            },
+            {
+              title: "Video Diskusi Pendampingan",
+              description: "Video dokumentasi sesi diskusi pendampingan UMKM Sylma Collection.",
+              type: "video",
+              src: "/videos/sylma-collection-discussion-video-1.mp4",
+              thumbnail: "/images/umkm-activities/sylma-collection-discussion-1.jpeg",
+            },
+            {
+              title: "Video Review Produk",
+              description: "Video saat tim KKN dan pemilik UMKM meninjau produk-produk Sylma Collection.",
+              type: "video",
+              src: "/videos/sylma-collection-product-review-video-1.mp4",
+              thumbnail: "/images/umkm-activities/sylma-collection-product-review-1.jpeg",
+            },
+            {
+              title: "Video Foto Bersama",
+              description: "Video dokumentasi sesi foto bersama dengan tim KKN dan pemilik Sylma Collection.",
+              type: "video",
+              src: "/videos/sylma-collection-group-video-1.mp4",
+              thumbnail: "/images/umkm-activities/sylma-collection-group-photo-1.jpeg",
+            },
+            {
+              title: "Video Demonstrasi Sistem",
+              description: "Video dokumentasi demonstrasi sistem digital kepada pemilik UMKM Sylma Collection.",
+              type: "video",
+              src: "/videos/sylma-collection-system-demonstration-video-1.mp4",
+              thumbnail: "/images/umkm-activities/sylma-collection-system-demonstration-1.jpeg",
+            },
+            {
+              title: "Video Penjelasan Tablet",
+              description: "Video dokumentasi penjelasan lebih lanjut mengenai sistem melalui tablet.",
+              type: "video",
+              src: "/videos/sylma-collection-tablet-explanation-video-1.mp4",
+              thumbnail: "/images/umkm-activities/sylma-collection-tablet-demonstration-1.jpeg",
+            },
+            {
+              title: "Video Penjelasan Brosur",
+              description: "Video dokumentasi penjelasan materi pendataan digital menggunakan brosur.",
+              type: "video",
+              src: "/videos/sylma-collection-brochure-explanation-video-1.mp4",
+              thumbnail: "/images/umkm-activities/sylma-collection-brochure-presentation-1.jpeg",
+            },
+          ],
+        },
+      ],
     },
     {
-      title: "Sesi Diskusi Kelompok",
-      description: "Sesi diskusi kelompok untuk merancang sistem pendataan yang efektif.",
-      type: "image",
-      src: "/images/activities/group-discussion-session-1.jpeg",
-    },
-    {
-      title: "Penjelasan Sistem Digital",
-      description: "Mahasiswa menjelaskan cara kerja sistem pendataan digital kepada pelaku UMKM.",
-      type: "image",
-      src: "/images/activities/student-explaining-1.jpeg",
-    },
-    {
-      title: "Demonstrasi Aplikasi Digital",
-      description: "Demonstrasi langsung penggunaan aplikasi atau platform pendataan digital.",
-      type: "image",
-      src: "/images/activities/student-showing-digital-example-1.jpeg",
-    },
-    {
-      title: "Diskusi Produk UMKM",
-      description: "Diskusi mengenai pengembangan dan pemasaran produk-produk UMKM lokal.",
-      type: "image",
-      src: "/images/activities/umkm-product-discussion-1.jpeg",
-    },
-    {
-      title: "Foto Bersama Tim & Warga",
-      description: "Foto bersama tim KKNT dengan warga dan pelaku UMKM.",
-      type: "image",
-      src: "/images/activities/group-photo-1.jpeg",
-    },
-    {
-      title: "Foto Penutup Kegiatan",
-      description: "Foto bersama sebagai penutup rangkaian kegiatan pemberdayaan UMKM.",
-      type: "image",
-      src: "/images/activities/group-photo-2.jpeg",
+      rw: "04",
+      umkms: [
+        {
+          name: "Hans Taylor",
+          activities: [
+            {
+              title: "Presentasi Sistem Digital",
+              description: "Mahasiswa mempresentasikan sistem pendataan UMKM digital kepada pemilik Hans Taylor.",
+              type: "image",
+              src: "/images/umkm-activities/hans-taylor-group-system-presentation.jpeg",
+            },
+            {
+              title: "Penjelasan Detail Sistem",
+              description: "Mahasiswa memberikan penjelasan lebih lanjut mengenai fitur-fitur sistem digital.",
+              type: "image",
+              src: "/images/umkm-activities/hans-taylor-explanation-1.jpeg",
+            },
+            {
+              title: "Diskusi Implementasi",
+              description: "Sesi diskusi tentang bagaimana sistem digital dapat diimplementasikan di Hans Taylor.",
+              type: "image",
+              src: "/images/umkm-activities/hans-taylor-explanation-2.jpeg",
+            },
+            {
+              title: "Video Penjelasan Sistem 1",
+              description: "Video dokumentasi penjelasan awal sistem digital kepada pemilik Hans Taylor.",
+              type: "video",
+              src: "/videos/hans-taylor-explanation-video-1.mp4",
+              thumbnail: "/images/umkm-activities/hans-taylor-explanation-1.jpeg",
+            },
+            {
+              title: "Video Penjelasan Sistem 2",
+              description: "Video lanjutan penjelasan sistem digital dan interaksi dengan pemilik.",
+              type: "video",
+              src: "/videos/hans-taylor-explanation-video-2.mp4",
+              thumbnail: "/images/umkm-activities/hans-taylor-explanation-2.jpeg",
+            },
+          ],
+        },
+        {
+          name: "Catering",
+          activities: [
+            {
+              title: "Foto Bersama Tim KKN dan Pemilik Catering",
+              description: "Tim KKN berfoto bersama pemilik usaha catering after sesi pendampingan.",
+              type: "image",
+              src: "/images/umkm-activities/catering-group-photo-1.jpeg",
+            },
+            {
+              title: "Foto Bersama dengan Salam",
+              description: "Tim KKN dan pemilik catering berfoto bersama dengan pose salam.",
+              type: "image",
+              src: "/images/umkm-activities/catering-group-photo-2.jpeg",
+            },
+            {
+              title: "Penjelasan Sistem Digital kepada Pemilik Catering",
+              description: "Mahasiswa menjelaskan sistem pendataan digital UMKM kepada pemilik usaha catering.",
+              type: "image",
+              src: "/images/umkm-activities/catering-explanation-1.jpeg",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (1)",
+              description: "Video dokumentasi penjelasan sistem digital kepada pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-1.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-1-thumb.png",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (2)",
+              description: "Video lanjutan penjelasan sistem digital dan interaksi dengan pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-2.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-2-thumb.png",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (3)",
+              description: "Video dokumentasi penjelasan sistem digital kepada pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-3.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-3-thumb.png",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (4)",
+              description: "Video dokumentasi penjelasan sistem digital kepada pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-4.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-4-thumb.png",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (5)",
+              description: "Video dokumentasi penjelasan sistem digital kepada pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-5.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-5-thumb.png",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (6)",
+              description: "Video dokumentasi penjelasan sistem digital kepada pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-6.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-6-thumb.png",
+            },
+            {
+              title: "Video Penjelasan Sistem Digital (7)",
+              description: "Video dokumentasi penjelasan sistem digital kepada pemilik catering.",
+              type: "video",
+              src: "/videos/catering-explanation-video-7.mp4",
+              thumbnail: "/images/umkm-activities/catering-explanation-video-7-thumb.png",
+            },
+          ],
+        },
+      ],
     },
   ]
 
-  const umkmVideoActivities: Activity[] = [
+  const outputActivities: OutputActivity[] = [
     {
-      title: "Diskusi Pendataan UMKM Digital",
-      description: "Diskusi mendalam mengenai sistem pendataan UMKM berbasis digital dan manfaatnya.",
-      type: "video",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202025-07-16%20at%2011.00.24_649982be-Px4uuxq60EH2op8bks1uEaWlnzO5Qv.mp4",
-      thumbnail: "/images/activities/group-discussion-session-1.jpeg", // Using an existing image as thumbnail
+      title: "Mahasiswa Undip Bantu UMKM Plamongan Sari Go Digital dalam Laporan Keuangan",
+      author: "MUHAMMAD RAMA",
+      date: "17 Juli 2025",
+      content: `
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Mahasiswa Kelompok 5 KKN-T Tim 105 Universitas Diponegoro (Undip) menggelar kegiatan pendampingan bagi pelaku Usaha Mikro, Kecil, dan Menengah (UMKM) di Kelurahan Plamongan Sari RW 4, Kecamatan Pedurungan, Kota Semarang, pada Kamis, 17 Juli 2025. Kegiatan ini merupakan bagian dari program kerja bertema “Peningkatan Kapasitas Pemasaran dan Inovasi UMKM di Kota Semarang” yang menjadi fokus kelompok KKN-T dalam mendukung pemberdayaan ekonomi masyarakat di tingkat lokal.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        UMKM memiliki peran penting dalam menggerakkan roda perekonomian masyarakat. Namun, tidak sedikit pelaku usaha di tingkat kelurahan yang belum terbiasa melakukan pencatatan keuangan secara sistematis. Kondisi ini membuat mereka kesulitan mengetahui secara pasti kondisi usaha, termasuk besarnya keuntungan atau kerugian, serta perkembangan usaha dari waktu ke waktu. Melihat permasalahan tersebut, mahasiswa KKN-T menghadirkan solusi berupa edukasi dan pendampingan penggunaan template laporan keuangan berbasis Excel, yang dirancang sederhana namun mampu membantu UMKM mencatat arus kas harian hingga rekap tahunan.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 mb-4">
+        <img
+          src="/images/article-images/hans-taylor-excel-demonstration.jpeg"
+          alt="Mahasiswa Undip mendampingi UMKM Hans Taylor"
+          width="600"
+          height="400"
+          class="rounded-lg shadow-md w-full sm:w-1/2 object-cover"
+        />
+        <img
+          src="/images/article-images/catering-group-with-students.jpeg"
+          alt="Mahasiswa Undip mendampingi UMKM Catering Aminah"
+          width="600"
+          height="400"
+          class="rounded-lg shadow-md w-full sm:w-1/2 object-cover"
+        />
+      </div>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pendampingan dilakukan dengan mengunjungi dua UMKM di RW 4 pada hari yang sama. Kunjungan pertama dilakukan ke Hans Taylor, sebuah usaha konveksi milik Bapak Nur Hasim, pada pukul 11.00 WIB. Sementara pada pukul 15.00 WIB, tim melanjutkan kunjungan ke Catering Aminah, usaha katering rumahan milik Ibu Siti Aminah. Kedua pelaku usaha ini menyambut baik inovasi yang dibawa mahasiswa KKN-T dan antusias belajar cara menggunakannya.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Template laporan keuangan yang diperkenalkan memiliki sejumlah fitur utama yang mempermudah pencatatan bagi pelaku UMKM. Template ini menyediakan kolom untuk mencatat pemasukan dan pengeluaran harian lengkap dengan tanggal, deskripsi, tipe transaksi, cara pembayaran, dan saldo akhir yang otomatis terhitung. Selain itu, tersedia rekap bulanan yang menyajikan total pemasukan, pengeluaran, profit bersih, rugi bersih, saldo akhir, persentase keuntungan atau kerugian, serta margin perbandingan dengan bulan sebelumnya. Di akhir tahun, template juga menyediakan rekap tahunan yang menyajikan rangkuman seluruh bulan beserta analisis selisih saldo awal dan akhir tahun. Fitur lain yang menarik adalah adanya penanda otomatis untuk bulan dengan profit tertinggi dan bulan dengan kerugian tertinggi, sehingga pelaku usaha dapat dengan mudah mengevaluasi performa usaha mereka.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Dengan adanya template laporan keuangan digital ini, pelaku UMKM diharapkan dapat lebih mudah memantau kondisi keuangan usaha, membuat keputusan berdasarkan data, menyusun laporan keuangan untuk keperluan pembiayaan, serta mengelola usaha secara lebih profesional. Program ini juga sejalan dengan upaya pemerintah kota dalam mendorong digitalisasi UMKM.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Mahasiswa KKN-T Kelompok 5 berharap, melalui program sederhana namun aplikatif ini, UMKM di Kelurahan Plamongan Sari RW 4 dapat semakin berkembang dan meningkatkan daya saing mereka di tengah persaingan pasar. Kegiatan ini menjadi salah satu wujud nyata kontribusi mahasiswa Undip dalam mendukung pemberdayaan ekonomi masyarakat melalui edukasi praktis dan inovasi yang bermanfaat bagi pelaku usaha.
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-8">Materi Pendukung</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+        <Card className="p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 bg-white w-full hover:scale-[1.02]">
+          <Link href="https://drive.google.com/file/d/1GyFmROzw9eV_y2CKUl_QlCDmblcspaVy/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center w-full h-full">
+            <PlayCircle class="h-8 w-8 text-red-500 mr-3 flex-shrink-0" />
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-gray-900">Tutorial Video</p>
+              <p class="text-sm text-gray-600">Tonton video panduan penggunaan template.</p>
+            </div>
+          </Link>
+        </Card>
+        <Card className="p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 bg-white w-full hover:scale-[1.02]">
+          <Link href="https://docs.google.com/spreadsheets/d/1uN7vFbRrE-4nZHDdyHfGNAiz7hNszOLh/edit?rtpof=true&gid=808231319#gid=808231319" target="_blank" rel="noopener noreferrer" className="flex items-center w-full h-full">
+            <FileSpreadsheet class="h-8 w-8 text-green-600 mr-3 flex-shrink-0" />
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-gray-900">Excel Perhitungan Arus Kas</p>
+              <p class="text-sm text-gray-600">Unduh template Excel untuk pencatatan keuangan.</p>
+            </div>
+          </Link>
+        </Card>
+      </div>
+      <p class="text-sm text-gray-500 mt-8">
+        Tim KKN-T Kelompok 5 – Tim 105 Universitas Diponegoro<br/>
+        Kelurahan Plamongan Sari, RW 4<br/>
+        Periode: 1-27 Juli 2025<br/>
+        Tema: Peningkatan Kapasitas Pemasaran dan Inovasi UMKM di Kota Semarang
+      </p>
+    `,
+      images: [
+        {
+          src: "/images/article-images/hans-taylor-excel-demonstration.jpeg",
+          alt: "Mahasiswa Undip mendampingi UMKM Hans Taylor",
+        },
+        {
+          src: "/images/article-images/catering-group-with-students.jpeg",
+          alt: "Mahasiswa Undip mendampingi UMKM Catering Aminah",
+        },
+      ],
     },
     {
-      title: "Edukasi Pembukuan Digital",
-      description: "Edukasi tentang pembukuan keuangan secara digital untuk UMKM.",
-      type: "video",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202025-07-16%20at%2011.00.28_dd6d9999-0Gn1smccLWSKlyMVUkMP3QWGz2rWlA.mp4",
-      thumbnail: "/images/activities/student-explaining-1.jpeg", // Using an existing image as thumbnail
+      title: "ANALISIS RASIO PROFITABILITAS UNTUK MENINGKATKAN MANAJEMEN KEUANGAN UMKM",
+      author: "SINGGIH ABIYOGA",
+      date: "23 Juli 2025", // Assuming current date for the new article
+      content: `
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Tanpa manajemen yang tepat, UMKM bisa saja berjalan tanpa arah, bahkan tersandung di tengah jalan. Nah, salah satu cara paling efektif untuk mengevaluasi keuangan UMKM adalah dengan menggunakan analisis rasio keuangan.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Mungkin Anda pernah mendengar istilah seperti Current Ratio, Rasio Profitabilitas, atau Liquidity Ratio, bukan? Semua itu adalah bagian dari kumpulan financial ratio yang memiliki peran penting dalam membaca "kesehatan" keuangan suatu UMKM. Terkhususnya untuk UMKM, analisis Rasio Profitabilitas memiliki peran yang signifikan untuk perkembangan UMKM.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Mari kita pelajari lebih jelas apa yang dimaksud dengan Rasio Profitabilitas, jenis dan rumus, pada artikel di bawah ini!
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Rasio Profitabilitas</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Jika kamu sudah masuk ke dalam dunia akuntansi keuangan suatu usaha, pasti tidak asing lagi dengan konsep rasio profitabilitas. Dalam istilah sederhana, rasio profitabilitas adalah alat yang membantu kamu menilai seberapa baik suatu badan usaha dalam menghasilkan laba dari pendapatannya.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Singkat kata, bisa diketahui bahwa rasio profitabilitas adalah ukuran penting yang menunjukkan seberapa efisien badan usaha dalam menghasilkan keuntungan dari aktivitas produksinya.
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Jenis-Jenis Rasio Profitabilitas</h3>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li><strong>Gross Profit Margin (GPM):</strong> Perbandingan yang mengukur antara laba kotor kepada penjualan bersih suatu perusahaan. Idealnya di atas 30%, tergantung industrinya. Semakin tinggi, berarti perusahaan efisien mengelola harga pokok produksinya.</li>
+        <li><strong>Net Profit Margin (NPM):</strong> Net Profit disebut juga dengan margin laba bersih yang fungsinya untuk mengukur laba bersih atas transaksi penjualan suatu perusahaan. Idealnya 10–20%, tapi bisa bervariasi menurut industri. Semakin tinggi, semakin baik karena berarti lebih banyak laba bersih dari setiap penjualan.</li>
+        <li><strong>Return On Asset (ROA):</strong> Rasio profitabilitas selanjutnya adalah ROA, yakni rasio yang menunjukkan kemampuan suatu perusahaan dalam menghasilkan laba dengan memanfaatkan semua aktiva yang dimiliki. Perlu diingat jika laba yang dihasilkan dari rasio ROA ini adalah laba sebelum bunga dan pajak. Sedangkan nilai rasio yang idealnya adalah >5%. Mengukur efisiensi penggunaan aset dalam menghasilkan laba.</li>
+        <li><strong>Return On Investment (ROI):</strong> Rasio yang digunakan untuk mengukur kemampuan perusahaan ketika akan menghasilkan laba untuk menutup biaya investasi yang telah dikeluarkan. ROI yang baik dan sehat umumnya berada di angka minimal 15%–20% per tahun.</li>
+      </ul>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Rumus Rasio Profitabilitas</h3>
+      <div class="flex justify-center mb-6">
+        <img
+          src="/images/article-images/profitability-ratios-formulas.png"
+          alt="Rumus Rasio Profitabilitas"
+          width="700"
+          height="500"
+          class="rounded-lg shadow-md w-full max-w-xl object-contain"
+        />
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Kesimpulan</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Rasio profitabilitas adalah ukuran kunci dalam mengevaluasi kemampuan badan usaha dalam menghasilkan laba dari pendapatannya. Jika kamu adalah pelaku usaha, maka penting untuk memahami rasio ini, karena dapat memberikan wawasan berharga dalam pengambilan keputusan yang kreatif dan inovatif.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Dengan pemahaman yang baik tentang rasio profitabilitas, kamu dapat lebih memahami dinamika usaha modern dan mengelola aspek keuangan yang krusial untuk kesuksesan badan usaha.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Demikian informasi kali ini. Semoga bermanfaat dan tetap semangat menjalankan usaha!
+      </p>
+    `,
+      images: [
+        {
+          src: "/images/article-images/profitability-ratios-formulas.png",
+          alt: "Rumus Rasio Profitabilitas",
+        },
+      ],
     },
     {
-      title: "Video Diskusi UMKM",
-      description: "Video kegiatan diskusi pendataan UMKM (template).",
-      type: "video",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202025-07-16%20at%2011.07.43_7865fff0-bRgQOPhT4zmRamCTTVrOI2ZEEoy9ZT.mp4",
-      thumbnail: "/images/activities/discussion-with-locals-1.jpeg", // Using an existing image as thumbnail
+      title: "Perlindungan Konsumen dan Keamanan Digital untuk UMKM",
+      author: "FELICITAS VANIA ARDININGRUM",
+      date: "24 Juli 2025",
+      content: `
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">PENTINGNYA PERLINDUNGAN KONSUMEN DALAM MEWUJUDKAN USAHA YANG AMAN DAN KONSUMEN YANG NYAMAN</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Terlepas dari kualitas produk, kenyamanan dan keamanan konsumen merupakan faktor penting dalam menjalankan kegiatan usaha, termasuk Usaha Kecil, Mikro dan Menengah (UMKM). Undang-undang Dasar Negara Republik Indonesia Tahun 1945 secara tegas telah menyatakan dan mengatur bahwa setiap warga negara berhak untuk mendapat perlindungan yang sama di mata hukum. Hal ini berlaku pula bagi setiap warga negara yang memiliki peran sebagai penjual atau produsen dan pembeli produk dan/atau jasa yang telah disediakan penjual dengan sebutan konsumen. Amanat ini telah diatur lebih detail dalam Undang-undang Nomor 8 Tahun 1999 tentang Perlindungan Konsumen. Secara singkat, aturan ini diberlakukan untuk mengatur hak dan kewajiban pelaku usaha yakni produsen dan konsumen. Dalam banyak kasus sengketa konsumen, kedudukan konsumen seringkali berada dalam kondisi yang lebih lemah dibandingkan produsen, maka dari itu undang-undang ini diatur untuk menyamakan kedudukan kedua pihak yang bersengketa, serta menjamin perlindungan hukum bagi para pihak dalam sengketa konsumen. Selain itu, undang-undang ini disahkan untuk meningkatkan kesadaran dan kemampuan konsumen untuk melindungi diri, menghadirkan kepastian hukum serta keterbukaan informasi, menumbuhkan sikap tanggung jawab dan kejujuran sebagai upaya menghadirkan kesadaran pelaku usaha mengenai pentingnya perlindungan konsumen, serta upaya meningkatkan kualitas barang dan/atau jasa yang menjamin kelangsungan usaha, kesehatan, kenyamanan, keamanan dan keselamatan konsumen.
+      </p>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Hak Konsumen berdasarkan Pasal 4 UU Perlindungan Konsumen antara lain:</h4>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>hak atas kenyamanan, keamanan, dan keselamatan dalam mengkonsumsi barang dan/atau jasa;</li>
+        <li>hak untuk memilih serta mendapatkan barang dan/atau jasa sesuai dengan nilai tukar dan kondisi dan jaminan barang dan/atau jasa;</li>
+        <li>hak atas informasi yang benar, jelas, dan jujur mengenai kondisi dan jaminan barang dan/atau jasa;</li>
+        <li>hak untuk didengar pendapat dan keluhannya atas barang dan/atau upaya jasa yang digunakan;</li>
+        <li>hak untuk mendapatkan advokasi, perlindungan, dan upaya penyelesaian sengketa perlindungan konsumen secara patut;</li>
+        <li>hak untuk mendapat pembinaan dan pendidikan konsumen;</li>
+        <li>hak untuk diperlakukan atau dilayani secara benar dan jujur serta tidak diskriminatif;</li>
+        <li>hak untuk mendapatkan kompensasi, ganti rugi dan/atau penggantian, apabila barang dan/atau jasa yang diterima tidak sesuai dengan perjanjian atau tidak sebagaimana mestinya;</li>
+        <li>hak-hak yang diatur dalam peraturan perundang-undangan lainnya.</li>
+      </ul>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Sedangkan kewajiban konsumen diatur dalam Pasal 5 UU Perlindungan Konsumen antara lain:</h4>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>membawa atau mengikuti petunjuk informasi dan prosedur pemakaian atau pemanfaatan barang dan/atau jasa, demi keamanan dan keselamatan;</li>
+        <li>beritikad baik dalam melakukan transaksi pembelian barang dan/atau jasa;</li>
+        <li>membayar sesuai dengan nilai tukar yang disepakati;</li>
+        <li>mengikuti upaya penyelesaian hukum sengketa perlindungan konsumen secara patut</li>
+      </ul>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Selain konsumen, hak pelaku usaha juga diatur dalam Pasal 6 UU Perlindungan Konsumen meliputi:</h4>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>hak untuk menerima pembayaran yang sesuai dengan kesepakatan mengenai kondisi dan nilai tukar barang dan/atau jasa yang diperdagangkan;</li>
+        <li>hak untuk mendapat perlindungan hukum dari tindakan konsumen yang beritikad tidak baik;</li>
+        <li>hak untuk melakukan pembelaan diri sepatutnya di dalam penyelesaian hukum sengketa konsumen;</li>
+        <li>hak untuk rehabilitasi nama baik apabila terbukti secara hukum bahwa kerugian konsumen tidak diakibatkan oleh barang dan/atau jasa yang diperdagangkan;</li>
+        <li>hak-hak yang diatur dalam ketentuan peraturan perundang-undangan lainnya.</li>
+      </ul>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Sedangkan kewajiban pelaku usaha telah diatur dalam Pasal 7 UU Perlindungan Konsumen, yakni:</h4>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>beritikad baik dalam melakukan kegiatan usaha;</li>
+        <li>memberikan informasi yang benar, jelas dan jujur mengenai kondisi dan jaminan barang dan/atau jasa serta memberi penjelasan penggunaan, perbaikan dan pemeliharaan;</li>
+        <li>memperlakukan atau melayani konsumen secara benar dan jujur serta tidak diskriminatif;</li>
+        <li>menjamin mutu barang dan/atau jasa yang diproduksi dan/atau diperdagangkan berdasarkan ketentuan standar mutu barang dan/atau jasa yang berlaku;</li>
+        <li>memberi kesempatan kepada konsumen untuk menguji, dan/atau mencoba barang dan/atau jasa tertentu serta memberi jaminan dan/atau garansi atas barang yang dibuat dan/atau yang diperdagangkan;</li>
+        <li>memberi kompensasi, ganti rugi dan/atau penggantian atas kerugian akibat penggunaan, pemakaian dan pemanfaatan barang dan/atau jasa yang diperdagangkan;</li>
+        <li>memberi kompensasi, ganti rugi dan/atau penggantian apabila barang dan/atau jasa yang diterima atau dimanfaatkan tidak sesuai dengan perjanjian.</li>
+      </ul>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Undang-undang ini secara tegas melarang pelaku usaha untuk melakukan manipulasi dan/atau menyembunyikan informasi produk baik yang tercantum dalam kemasan, maupun informasi dalam iklan yang bersifat cetak maupun iklan bersifat online.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pelaksanaan hak dan kewajiban baik oleh pelaku usaha maupun konsumen secara tepat, dapat mewujudkan kegiatan perbelanjaan yang aman dan nyaman, sehingga dapat memajukan perekonomian daerah.
+      </p>
+
+      <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-8">CYBERCRIME ATAS INFORMASI DALAM DUNIA DIGITAL</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Besarnya harapan Usaha Mikro, Kecil dan Menengah (UMKM) untuk mengembangkan usahanya, terutama dengan memanfaatkan kemajuan teknologi seringkali membawa dampak buruk bagi pemilik, apabila tidak dikelola dengan baik. Hal ini terjadi karena adanya risiko cybercrime atau kejahatan siber seperti pencurian data, penipuan hingga peretasan. Maka dari itu, penting bagi pelaku UMKM untuk mengetahui dan memahami cybercrime untuk melindungi diri dan usahanya dari ancaman digital.
+      </p>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Apa itu Cybercrime?</h4>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Cybercrime adalah pelanggaran hukum menggunakan komputer, jaringan atau perangkat digital dan internet sebagai alat, sasaran, atau tempat terjadinya tindak pidana, misalnya penipuan online, pemalsuan informasi digital dan peretasan data pelanggan.
+      </p>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Risiko dan/atau ancaman cybercrime dapat dihindari pelaku usaha dengan menerapkan prinsip kehati-hatian, seperti:</h4>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Edukasi & Literasi Digital</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pelaku UMKM dapat mengikuti pelatihan tentang cyber security atau keamanan digital, pentingnya perlindungan data pribadi dalam dunia digital, serta memahami regulasi e-commerce baik yang diadakan oleh pemerintah melalui lembaga terkait maupun oleh non-pemerintah.
+      </p>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Sistem Keamanan Digital</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pelaku UMKM perlu menggunakan kata sandi atau password yang kuat serta rutin memperbaharui perangkat lunak, untuk mencegah terjadinya peretasan.
+      </p>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Melindungi Data Konsumen</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Data konsumen dan/atau pribadi merupakan informasi sensitif yang tidak dapat disebarluaskan dengan mudah. Maka dari itu, pelaku UMKM jangan pernah membagikan data sensitif konsumen ke pihak lain tanpa izin dari konsumen yang bersangkutan, terutama dalam informasi-informasi tertentu sesuai dengan ketentuan dalam Undang-undang Nomor 27 Tahun 2022 tentang Perlindungan Data Pribadi.
+      </p>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Legalitas Marketplace</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pelaku usaha wajib memastikan legalitas marketplace tempat bertransaksi. Marketplace terpercaya memberikan jaminan keamanan serta menciptakan kenyamanan bagi konsumen.
+      </p>
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">Atas risiko yang semakin berkembang mengikuti perkembangan teknologi saat ini, UMKM memiliki beberapa hak perlindungan yang telah diatur, antara lain:</h4>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Hak Mendapat Pembinaan & Dukungan</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pemerintah wajib memberikan edukasi, pelatihan dan bantuan bagi UMKM untuk mengetahui perkembangan teknologi (digital) serta hukum, sehingga terhindar dari permasalahan yang UMKM yang melibatkan teknologi dan hukum.
+      </p>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Hak Atas Perlindungan Data</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Setiap UMKM berhak mendapat perlindungan atas data pribadi, data konsumen dan data bisnis dari penyalahgunaan oleh pihak ketiga, sesuai dengan yang tercantum dalam Undang-undang Nomor 27 Tahun 2022 tentang Perlindungan Data Pribadi.
+      </p>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Hak Akses Pembiayaan Digital</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        UMKM memiliki akses untuk menerima pembiayaan digital melalui fintech, P2P Lending serta platform digital legal lainnya yang harus dipastikan berada dalam pengawasan Otoritas Jasa Keuangan (OJK) dan dijaminkan oleh Lembaga Penjaminan Simpanan (LPS).
+      </p>
+      <h5 class="text-lg font-semibold text-gray-900 mb-2">Kemudahan Penyelesaian Sengketa</h5>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        UMKM memiliki jaminan untuk dapat menempuh jalur hukum apabila terjadi suatu sengketa dalam kegiatan jual beli yang memanfaatkan kemajuan teknologi.
+      </p>
+      `,
+      images: [],
     },
     {
-      title: "Video Edukasi Pembukuan",
-      description: "Video edukasi pembukuan digital (template).",
-      type: "video",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202025-07-16%20at%2011.07.43_3336aff3-DFCPKQxcFkBrtI2radd8oBPht9S6AF.mp4",
-      thumbnail: "/images/activities/umkm-product-discussion-1.jpeg", // Using an existing image as thumbnail
+      title:
+        "“Cara Cerdas, Pembeli Puas”: Membangun Daya Tarik UMKM Melalui Penerapan Indikator Service Quality dalam Konsep Pemasaran",
+      author: "ALYA JASMIN RIANSYA",
+      date: "25 Juli 2025",
+      content: `
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Ketika melakukan analisis keputusan pembeli, penting untuk mengetahui beberapa faktor yang dapat mempengaruhi persepsi dan keputusan konsumen. Diantaranya yaitu perbedaan internal individu, yang meliputi kebutuhan dan keinginan, motivasi, pemikiran, dan pengalaman dalam membeli. Kemudian konsumen akan dipengaruhi oleh faktor lingkungannya, seperti faktor demografis, lingkungan sosial, kondisi ekonomi setempat, dan pengaruh kelompok acuan. Dari kedua faktor tersebut, keputusan pembeli dapat dikontrol dengan strategi pemasaran. Selain dalam bentuk promosi, pengusaha UMKM juga dapat mengupayakan dengan meningkatkan kualitas pelayanan.
+      </p>
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-TSVSfd80gSfbHfZOFV1VcuVGOvADli.png"
+          alt="Wujudkan UMKM Digital dan Pelayanan Cerdas, Lahir Desa Tangguh dan Masyarakat Makmur"
+          width="800"
+          height="500"
+          class="rounded-lg shadow-md w-full max-w-2xl object-contain"
+        />
+      </div>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Kualitas pelayanan merupakan salah satu komponen penting dalam menjalankan usaha untuk mendapatkan ketertarikan dari pembeli, mewujudkan kepuasan konsumen dan karyawan, serta membangun loyalitas konsumen terhadap produk UMKM. Maka dari itu, penting menerapkan beberapa strategi pelayanan yang dapat menarik perhatian dan menjaga tingkat konsistensi pembelian di generasi saat ini. Beberapa indikaror yang dapat diterapkan dalam UMKM atau usaha rumahan adalah:
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Penampilan Fisik (Tangible)</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Meliputi penampilan fisik dan bukti nyata bentuk pelayanan yang diberikan. Penampilan fisik meliputi fasilitas, karyawan, dan bagaimana penjual menyajikan produknya. Hal tersebut tentunya dapat memberikan kesan pertama yang positif bagi pembelinya. Beberapa contoh indikator tangible yang baik adalah:
+      </p>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>Kondisi toko yang bersih, nyaman, desain menarik, dan lokasi toko yang bersih serta higienis</li>
+        <li>Penyajian dan pengemasan produk yang sesuai dengan produk dan harga.</li>
+        <li>Fasilitas fisik yang lengkap: barcode atau mesin Qris, tisu, tempat duduk dan meja yang memadai</li>
+        <li>Penampilan penjual yang rapih dan sopan</li>
+      </ul>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Semua hal itu tentu akan memberikan nilai positif di mata pelanggan dengan memperhatikan kebutuhan, keinginan, dan permintaan dari konsumen, dengan contoh studi kasus:
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        <strong>“Masyarakat setempat gemar membeli makan di warung nasi”</strong>
+      </p>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li><strong>Kebutuhan:</strong> pilihan konsumen adalah warung nasi, namun kebutuhan ini akan dipengaruhi oleh beberapa faktor seperti kebersihan penyajian makanan dan penataan tempat duduk.</li>
+        <li><strong>Keinginan:</strong> tentukan target konsumen, jika jangkauan pemasaran ingin lebih luas, maka biasanya konsumen selain membutuhkan makanan sebagai kebutuhan dasar, ada keinginan merasakan suasana nyaman dan estetika dari penyajian makanan.</li>
+      </ul>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Empati dan Responsif</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Dua komponen ini merupakan keterampilan yang perlu dimiliki oleh penjual atau pemilik gerai usaha. Merupakan kemampuan untuk memahami konsumen dengan cara memperhatikan kebutuhan dan keinginan konsumen, serta memberikan layanan yang cepat tanggap. Apabila dalam pelayanan, pegawai dapat memberikan penjelasan yang mendetail, membina, mengarahkan, membujuk atau memberikan solusi, maka akan lebih mudah dimengerti oleh pelanggan dan pelayanan akan mendapat respon yang positif. Sebagai pelaku usaha selain mencari keuntungan, tentunya penting dalam membangun kedekatan emosional dan kepercayaan dengan pelanggan. Beberapa bentuk nyata yang dapat ditampilkan adalah:
+      </p>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>Menguasai detail informasi produk dan memberikan solusi
+          <ul class="list-circle list-inside ml-4">
+            <li>“Kalau suka yang gak terlalu pedas bisa pilih menu ini”</li>
+            <li>“Kalau mau gak terlalu manis, gulanya bisa dipisah”</li>
+            <li>“Kalau menu ini porsinya besar jadi bisa sharing”</li>
+          </ul>
+        </li>
+        <li>Mengenali kebiasaan pelanggan tetap
+          <ul class="list-circle list-inside ml-4">
+            <li>“Bungkus buat anaknya ya bu? Nanti saya buat gak terlalu pedas ya”</li>
+            <li>“Stoknya hari ini sudah habis ka, tapi besok pagi bisa saya buat dan antar duluan”</li>
+          </ul>
+        </li>
+        <li>Ketika komunikasi melalui pesan online, pastikan jawab dengan cepat dan responsif.</li>
+        <li>Memberi sapaan hangat dan selalu mengucapkan terima kasih kepada pembeli.</li>
+      </ul>
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IO9ptFpeOisEQeHXxNR8Ti5CdwZQgz.png"
+          alt="Screenshot Google Form: Tangible and Empati & Responsif"
+          width="800"
+          height="500"
+          class="rounded-lg shadow-md w-full max-w-2xl object-contain"
+        />
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Reliabilty (Keandalan)</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Setiap pelayanan memerlukan pegawai yang memiliki pengetahuan, keahlian, dan profesionalisme dalam bidang kerjanya sehingga tidak ada bentuk keluhan dan kesan negatif yang diterima oleh masyarakat (Parasuraman, 2001). Keahlian yang dimaksud adalah handal dalam penguasaan bidang kerja dan pemanfaatan teknologi yang mendukung. Tak hanya berlaku untuk pegawai, penting bagi pelaku usaha untuk menerapkan konsistensi agar sesuai dengan apa yang dijanjikan oleh pembeli.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Bentuk nyata yang dapat ditunjukkan:
+      </p>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>Konsistensi jam buka tutup dan kesesuaian daftar harga.</li>
+        <li>Memberikan informasi seputar fasilitas dan produk (promosi, paket murah, komposisi produk)</li>
+        <li>Melayani dengan baik dan konsisten meskipun ramai pelanggan</li>
+        <li>Handal dalam memasarkan produk ke masyarakat, baik melalui media online atau secara langsung.</li>
+        <li>Pelaku usaha dapat menyesuaikan permintaan konsumen dalam bentuk kemasan produk.</li>
+      </ul>
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-thkmFDZLKjBj6FAXpEfm1iXr2V3G27.png"
+          alt="Screenshot Google Form: Reliability"
+          width="800"
+          height="500"
+          class="rounded-lg shadow-md w-full max-w-2xl object-contain"
+        />
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-8">KONTRIBUSI KE UMKM</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Survey kepuasan konsumen melalui penilaian terhadap indikator kualitas pelayanan untuk UMKM Catering Ibu Aminah
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Lokasi: <Link href="https://g.co/kgs/Kuj46Fi" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://g.co/kgs/Kuj46Fi</Link>
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Link Form: <Link href="https://docs.google.com/forms/d/e/1FAIpQLScyocVE10ipbcEr8W58It7YizVf_SxE32KSi5TssuZ-zTcbvA/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://docs.google.com/forms/d/e/1FAIpQLScyocVE10ipbcEr8W58It7YizVf_SxE32KSi5TssuZ-zTcbvA/viewform?usp=headeryang</Link>
+      </p>
+      `,
+      images: [
+        {
+          src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-TSVSfd80gSfbHfZOFV1VcuVGOvADli.png",
+          alt: "Wujudkan UMKM Digital dan Pelayanan Cerdas, Lahir Desa Tangguh dan Masyarakat Makmur",
+        },
+        {
+          src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IO9ptFpeOisEQeHXxNR8Ti5CdwZQgz.png",
+          alt: "Screenshot Google Form: Tangible and Empati & Responsif",
+        },
+        {
+          src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-thkmFDZLKjBj6FAXpEfm1iXr2V3G27.png",
+          alt: "Screenshot Google Form: Reliability",
+        },
+      ],
     },
     {
-      title: "Video Interaksi Kegiatan",
-      description: "Video interaksi dan diskusi kegiatan (template).",
-      type: "video",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202025-07-16%20at%2011.07.43_72dfc433-lFchKfLnRPCggQ28ZRSlhAzwDNujDG.mp4",
-      thumbnail: "/images/activities/group-photo-1.jpeg", // Using an existing image as thumbnail
+      title: "Meningkatkan Jangkauan Usaha Melalui Google Maps: Solusi Digital Bagi UMKM",
+      author: "TIARA ADINDA MAHARANI PERWIKA",
+      date: "25 Juli 2025",
+      content: `
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pada era digital seperti saat ini, kehadiran usaha di dunia maya menjadi salah satu kunci penting untuk memperluas jangkauan konsumen dan meningkatkan daya saing. Sayangnya, banyak pelaku UMKM (Usaha Mikro, Kecil, dan Menengah), terutama di wilayah pedesaan atau kelurahan, belum sepenuhnya memanfaatkan platform digital gratis yang tersedia. Salah satu contoh paling sederhana namun sangat efektif adalah Google Maps.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Google Maps bukan sekadar aplikasi untuk mencari arah jalan. Di balik tampilannya yang sederhana, terdapat potensi besar untuk memperkenalkan usaha kepada masyarakat luas. Ketika seseorang mencari produk atau jasa, mereka sering mengetik kata kunci seperti “warung makan terdekat”, “laundry terdekat”, atau “toko bahan bangunan dekat sini”. Hasil pencarian tersebut umumnya menampilkan tempat usaha yang sudah terdaftar di Google Maps. Artinya, jika usaha kita belum terdaftar, maka akan luput dari perhatian calon pembeli meskipun lokasinya dekat.
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Mengapa Google Maps Penting untuk UMKM?</h3>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li><strong>Meningkatkan Visibilitas Usaha</strong><br/>
+          Saat usaha terdaftar di Google Maps, informasi usaha tersebut bisa muncul saat orang mencarinya lewat Google Search maupun Maps. Ini meningkatkan kemungkinan konsumen baru datang, bahkan dari luar daerah.</li>
+        <li><strong>Memberi Kesan Profesional dan Terpercaya</strong><br/>
+          Usaha yang muncul di Google dengan nama, alamat, dan jam operasional terlihat lebih profesional. Apalagi jika sudah ada ulasan dari pelanggan. Ini membangun kepercayaan.</li>
+        <li><strong>Mempermudah Arah dan Navigasi</strong><br/>
+          Konsumen tidak perlu bertanya-tanya arah ke tempat usaha, cukup klik lokasi dan mengikuti petunjuk dari Google Maps.</li>
+        <li><strong>Mendukung Promosi Tanpa Biaya</strong><br/>
+          Tidak perlu iklan mahal, cukup membuat profil usaha dan mengunggah beberapa foto, orang - orang dapat melihat produk dan lokasi kita.</li>
+      </ul>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Tantangan dan Solusi</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pada beberapa pelaku UMKM merasa ragu karena belum terbiasa dengan teknologi. Namun, sosialisasi ini dirancang dengan pendekatan sederhana, menggunakan HP pribadi, dan bisa dipraktikkan secara langsung. Peserta yang tidak memiliki HP Android pun tetap bisa terlibat melalui bantuan anggota keluarga atau tetangga. Namun, tantangan jaringan internet juga masih menjadi permasalahan di beberapa tempat. Maka dari itu, kegiatan sosialisasi sebaiknya dilakukan di lokasi yang memiliki sinyal stabil atau menggunakan Wi-Fi publik, seperti di balai desa.
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Dampak Jangka Panjang bagi UMKM</h3>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Dengan terdaftarnya usaha di Google Maps, maka akan terbuka lebih banyak peluang:
+      </p>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li>Peluang pesanan online lebih tinggi</li>
+        <li>Konsumen dari luar desa bisa menemukan produk lokal</li>
+        <li>UMKM desa mulai dikenal dan punya identitas digital</li>
+        <li>Usaha lebih mudah diakses untuk kerjasama atau kolaborasi</li>
+      </ul>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Langkah kecil seperti ini bisa menjadi awal dari transformasi digital UMKM, terutama di tingkat desa. Seiring berjalannya waktu, pelaku usaha juga bisa belajar lebih jauh, seperti membuat katalog digital, promosi via WhatsApp, dan menerima pesanan online.
+      </p>
+      `,
+      images: [],
+    },
+    {
+      title:
+        "Pembuatan Konten Promosi Digital Menggunakan Canva: Strategi Inovatif dan Sarana Pemberdayaan UMKM di Era Digital",
+      author: "ANNISA WAHYU SAFITRI",
+      date: "25 Juli 2025", // Assuming current date for the new article
+      content: `
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Di tengah derasnya arus digitalisasi, Usaha Mikro, Kecil, dan Menengah (UMKM) menjadi aktor penting dalam roda perekonomian lokal. Mereka tidak hanya menopang ekonomi rumah tangga, tetapi juga merepresentasikan potensi budaya, kearifan lokal, dan inovasi yang tumbuh dari bawah. Namun di balik geliat itu, banyak pelaku UMKM masih terkendala satu hal mendasar: kemampuan mengemas produk secara menarik dan menjualnya lewat platform digital.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Era digital menuntut lebih dari sekadar keberadaan produk tetapi menuntut cerita, visual, dan cara menyampaikan yang mampu menarik perhatian konsumen dalam hitungan detik. Di sinilah konten promosi digital memainkan peran sentral. Konten bukan lagi pelengkap, melainkan jantung dari strategi pemasaran modern. Namun, bagaimana jika pelaku UMKM belum memiliki latar belakang desain grafis atau sumber daya untuk menyewa jasa profesional?
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Jawabannya hadir melalui sebuah alat sederhana namun revolusioner yaitu Canva. Canva adalah platform desain grafis berbasis daring yang dirancang untuk siapa saja bahkan bagi mereka yang belum pernah menyentuh software desain sekalipun. Dengan antarmuka drag-and-drop, koleksi ribuan template gratis, serta fitur fleksibel yang mudah digunakan melalui HP ataupun laptop, Canva menjadi jembatan antara ide kreatif dan kebutuhan pemasaran UMKM.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Lebih dari sekadar alat bantu! Canva telah menjadi media pemberdayaan. Dalam berbagai pelatihan literasi digital untuk UMKM di desa, kelurahan, hingga kota, Canva digunakan untuk membantu pelaku usaha membuat desain brosur, katalog digital, konten Instagram, hingga video promosi secara mandiri. Mereka belajar cara menyampaikan nilai unik produknya, menciptakan identitas visual usaha, dan menghadirkan narasi yang menggugah emosi calon pelanggan.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Sehingga, para pelaku UMKM tidak hanya didorong menjadi pengguna teknologi, tetapi juga produsen konten digital yang kreatif. Mereka tidak lagi sekadar mengunggah foto produk ala kadarnya, tetapi menyusun materi promosi dengan struktur yang kuat dari pemilihan warna yang konsisten, penggunaan tipografi yang tepat, penempatan logo, hingga kalimat ajakan (call to action) yang menarik pelanggan.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Transformasi ini meluas hingga membentuk ekosistem pemberdayaan digital yang menyentuh berbagai lapisan masyarakat. Pemuda desa yang dulunya hanya menggunakan media sosial untuk hiburan kini menjadi fasilitator digital bagi usaha di lingkungannya. Ibu rumah tangga mulai belajar membuat promosi melalui WhatsApp Business, sementara para pengrajin tradisional mulai menvisualisasikan proses pembuatan produk mereka dalam bentuk konten edukatif yang menarik.
+      </p>
+      <div class="flex justify-center mb-6">
+        <img
+          src="/images/article-images/canva-training-group.png"
+          alt="Pelatihan Pembuatan Konten Digital Menggunakan Canva"
+          width="800"
+          height="500"
+          class="rounded-lg shadow-md w-full max-w-2xl object-contain"
+        />
+      </div>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pada 14 Juli 2025, sebuah langkah konkret diambil untuk mengakselerasi transformasi ini melalui pelatihan secara door to door kepada para pelaku UMKM di wilayah RW dan RT, sekaligus menyelenggarakan sosialisasi kepada ibu-ibu PKK sebagai agen perubahan komunitas. Kegiatan ini bukan hanya menyampaikan materi secara satu arah, tetapi dilakukan secara dialogis dan partisipatif, mendekatkan teknologi ke dapur rumah tangga dan membuka ruang bagi setiap individu untuk bertanya, mencoba, dan menciptakan. Di akhir kegiatan, peserta pelatihan tidak hanya pulang dengan pengetahuan baru, tetapi juga mendapatkan prototype berupa template Canva yang telah disesuaikan dengan kebutuhan UMKM lokal, seperti katalog produk makanan rumahan, flyer jasa kerajinan, atau konten promosi jasa digital, yang seluruhnya dapat diakses publik secara gratis melalui tautan yang dibagikan. Ini menjadi langkah penting dalam menciptakan inklusi digital tidak sekadar memberi pengetahuan, tetapi juga memberikan alat dan rasa percaya diri untuk berkarya.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Tidak hanya itu, Canva juga menciptakan inklusi teknologi yang memberikan peluang bagi mereka yang sebelumnya tidak tersentuh dunia digital untuk mulai percaya diri. Ini bukan hanya soal peningkatan omzet, tetapi soal transformasi mentalitas dari pasif menjadi aktif, dari konsumen informasi menjadi pembuat narasi.
+      </p>
+      <h3 class="text-2xl font-bold text-gray-900 mb-4">Untuk mendukung proses ini, berikut beberapa langkah strategis yang biasa diterapkan dalam pelatihan pembuatan konten promosi dengan Canva:</h3>
+      <ul class="list-disc list-inside text-lg text-gray-700 leading-relaxed mb-4 space-y-2">
+        <li><strong>Identifikasi Tujuan Konten:</strong> Tentukan apakah konten bertujuan memperkenalkan produk baru, membangun kepercayaan, atau meningkatkan penjualan.</li>
+        <li><strong>Pemilihan Template dan Format:</strong> Pilih template sesuai platform target (Instagram, feed Shopee, video story, dll.).</li>
+        <li><strong>Personalisasi Visual:</strong> Ganti gambar, sesuaikan warna dan font dengan brand UMKM.</li>
+        <li><strong>Tambahkan Call to Action:</strong> Misalnya “Beli Sekarang!”, “Pesan via WA”, atau “Lihat Produk Lainnya”.</li>
+        <li><strong>Publikasikan dan Evaluasi:</strong> Unggah konten secara konsisten, lalu pelajari respons konsumen untuk konten berikutnya.</li>
+      </ul>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Kegiatan ini bukan hanya soal desain melainkan tentang bagaimana strategi komunikasi visual bisa menjembatani kepercayaan antara produk lokal dan konsumen digital. Bahkan dengan tren algoritma media sosial yang sangat visual, konten desain yang baik menjadi investasi jangka panjang bagi pertumbuhan UMKM.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Pada akhirnya, pembuatan konten digital menggunakan Canva bukan sekadar kegiatan teknis, tetapi bagian dari ekosistem pemberdayaan dengan mempertemukan inovasi teknologi dengan nilai lokal, kreativitas dengan partisipasi sosial, serta narasi digital dengan semangat ekonomi kerakyatan. Di tengah disrupsi digital, UMKM yang mampu menyuarakan dirinya dengan cara yang otentik dan menarik akan lebih mudah bertahan dan berkembang.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Dengan Canva di tangan, pelaku UMKM tidak lagi hanya menjadi penonton dalam arena digital, tetapi pemain aktif yang mampu menciptakan perubahan yang bukan hanya untuk usahanya, tapi juga untuk komunitasnya.
+      </p>
+      `,
+      images: [
+        {
+          src: "/images/article-images/canva-training-group.png",
+          alt: "Pelatihan Pembuatan Konten Digital Menggunakan Canva",
+        },
+      ],
+    },
+    {
+      title: "Digitalisasi Pencatatan Keuangan UMKM melalui Penggunaan Aplikasi atau Web SI APIK",
+      author: "SITI NUR LAELA YUNI SAHARA",
+      date: "25 Juli 2025", // Assuming current date for the new article
+      content: `
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Di tengah pesatnya pertumbuhan Usaha Mikro, Kecil, dan Menengah (UMKM) di Indonesia, masih banyak pelaku usaha yang menjalankan bisnisnya tanpa sistem pencatatan keuangan yang baik. Padahal, UMKM menyumbang lebih dari 60 persen terhadap Produk Domestik Bruto (PDB) dan menyerap mayoritas tenaga kerja nasional. Sayangnya, kontribusi besar ini belum sepenuhnya diiringi oleh kemampuan pengelolaan usaha yang modern dan tertata. Salah satu kelemahan paling umum yang dihadapi UMKM saat ini adalah ketidakteraturan dalam pencatatan keuangan.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Banyak UMKM di Indonesia masih mengandalkan pencatatan manual, bahkan ada yang sepenuhnya mengandalkan ingatan. Hal ini membuat mereka tidak mengetahui secara pasti berapa keuntungan sebenarnya, berapa modal yang tersisa, atau bahkan apakah usaha mereka sedang mengalami kerugian. Tanpa catatan keuangan yang rapi, pelaku UMKM juga sulit mendapatkan akses pembiayaan dari bank atau lembaga keuangan karena tidak dapat menunjukkan laporan keuangan yang valid. Di era digital saat ini, pola kerja seperti ini membuat UMKM rentan stagnan, sulit berkembang, dan tidak siap menghadapi persaingan pasar yang semakin kompetitif.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Sebagai respons terhadap masalah tersebut, Bank Indonesia mengembangkan aplikasi SI APIK (Sistem Aplikasi Pencatatan Informasi Keuangan), sebuah solusi digital pencatatan keuangan sederhana yang dirancang khusus untuk pelaku UMKM. Aplikasi ini bisa diakses secara gratis melalui web dan dapat digunakan secara offline setelah instalasi awal. SI APIK hadir untuk membantu pelaku usaha mencatat transaksi harian mereka dengan mudah, cepat, dan sistematis.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Melalui SI APIK, pengguna dapat mencatat berbagai jenis transaksi seperti penjualan, pembelian bahan, pembayaran utang, penarikan modal, hingga pengeluaran operasional. Lebih dari sekadar aplikasi pencatat transaksi, SI APIK juga menyediakan berbagai laporan keuangan otomatis, mulai dari laporan laba rugi, neraca, arus kas, hingga analisis beban usaha tahunan. Semua laporan ini bisa diakses kapan saja untuk membantu pemilik usaha memahami kondisi keuangan dan mengambil keputusan bisnis yang lebih cerdas.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    SI APIK ditujukan untuk semua kalangan UMKM—baik usaha rumahan, pedagang kaki lima, hingga pengusaha kecil menengah yang mulai berkembang. Tidak diperlukan latar belakang akuntansi atau keuangan untuk bisa menggunakannya. Proses registrasi juga tergolong mudah. Pelaku usaha cukup memiliki laptop atau komputer, koneksi internet saat pertama kali mendaftar, serta email aktif. Setelah mengunjungi situs resmi SI APIK dan membuat akun dengan mengisi nama, username, email, serta password, pengguna bisa langsung mulai mengisi data usaha dan melakukan pencatatan.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Untuk memaksimalkan manfaat dari aplikasi ini, pelaku UMKM disarankan menyiapkan data usaha sederhana seperti nama usaha, alamat, deskripsi singkat, serta informasi modal awal. Setelah itu, proses pencatatan bisa dilakukan setiap kali ada transaksi masuk atau keluar. Semua data akan tersimpan dengan aman dan bisa dicadangkan atau dipulihkan kapan saja melalui fitur backup dan restore.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Digitalisasi pencatatan keuangan melalui SI APIK merupakan langkah strategis agar UMKM Indonesia semakin tertib secara finansial dan siap bersaing di era modern. Dengan pencatatan yang rapi dan laporan yang jelas, pelaku usaha bisa lebih mudah mengevaluasi kinerja, memperluas pasar, serta mendapatkan kepercayaan dari investor maupun mitra bisnis.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Kini saatnya pelaku UMKM tidak lagi mencatat secara konvensional, tetapi mulai beralih ke pencatatan digital yang praktis dan efisien. Dengan SI APIK, setiap transaksi yang kecil sekalipun menjadi bermakna karena akan membentuk fondasi keuangan yang kuat bagi keberlanjutan usaha.
+  </p>
+  <p class="text-lg text-gray-700 leading-relaxed mb-4">
+    Sebagai langkah awal, pelaku UMKM yang ingin memulai dapat mengakses modul panduan praktis penggunaan aplikasi SI APIK yang telah disusun secara sistematis. Modul ini mencakup langkah-langkah mulai dari registrasi akun, pengisian data usaha, pencatatan transaksi, hingga cara melihat laporan keuangan. Panduan ini akan sangat membantu bagi pengguna baru agar lebih cepat memahami dan memanfaatkan seluruh fitur SI APIK secara optimal. Modul dapat diakses pada link berikut: <Link href="https://bit.ly/PanduanPraktisAplikasiSIAPIK" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://bit.ly/PanduanPraktisAplikasiSIAPIK</Link>
+  </p>
+  `,
+      images: [],
+    },
+    {
+      title:
+        "Inovasi Digital KKN-T Undip: Website Pendataan UMKM Tingkatkan Kapasitas Pemasaran di Plamongan Sari RW 04",
+      author: "RIZKY DHAFIN ALMANSYAH",
+      date: "25 Juli 2025",
+      content: `
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        SEMARANG – Usaha Mikro, Kecil, dan Menengah (UMKM) di Indonesia terus menjadi pilar ekonomi, namun di tingkat akar rumput, tantangan pendataan dan pengembangan seringkali masih menghambat. Menjawab kebutuhan ini, Kelompok 5 Kuliah Kerja Nyata Tematik (KKN-T) Tim 105 Universitas Diponegoro telah meluncurkan sebuah inovasi digital yang signifikan: <strong>Sistem Pendataan UMKM RT/RW</strong>. Proyek ini berfokus pada peningkatan kapasitas pemasaran dan inovasi UMKM di Desa Plamongan Sari, khususnya di wilayah RW 04, Kota Semarang.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Sebelumnya, pengelolaan data UMKM di tingkat RW masih banyak dilakukan secara manual. Hal ini menciptakan kendala serius seperti data yang tidak terpusat, kesulitan dalam memantau perkembangan usaha, terbatasnya potensi pemasaran, serta minimnya identifikasi peluang inovasi. Kondisi ini mendorong mahasiswa KKN-T Undip untuk merancang solusi yang lebih modern dan efisien.
+      </p>
+      <div class="flex justify-center mb-6">
+        <img
+          src="/images/article-images/umkm-dashboard-preview-large.png"
+          alt="Dashboard Sistem Pendataan UMKM"
+          width="800"
+          height="500"
+          class="rounded-lg shadow-md w-full max-w-2xl object-contain"
+        />
+      </div>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Website "Sistem Pendataan UMKM RT/RW" dikembangkan dengan fondasi teknologi terkini untuk memastikan performa optimal dan kemudahan penggunaan. Next.js 14 dengan App Router dipilih sebagai <em>framework</em> utama, memungkinkan aplikasi web yang cepat dan responsif. Desain antarmuka yang bersih dan modern diwujudkan melalui penggunaan Tailwind CSS dan komponen UI dari shadcn/ui, memastikan tampilan yang menarik di berbagai perangkat. Untuk penyimpanan data yang terpusat dan handal, tim mengintegrasikan Neon Database, sebuah solusi PostgreSQL <em>serverless</em> yang memungkinkan data UMKM tersimpan secara <em>online</em> dan dapat diakses dari mana saja. Keamanan data juga menjadi prioritas dengan implementasi sistem autentikasi kustom yang mendukung peran pengguna (Admin RW dan User Warga), memastikan akses data hanya oleh pihak yang berwenang.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Platform digital ini hadir dengan serangkaian fitur komprehensif. Sistem multi-user memungkinkan Admin RW untuk mengelola seluruh data UMKM di wilayahnya, memantau statistik, dan membuat laporan, sementara User Warga dapat mendaftarkan dan mengelola data UMKM miliknya sendiri. Fitur manajemen data UMKM sangat lengkap, mencakup formulir pendaftaran detail dengan lebih dari 25 bidang data, kemudahan untuk memperbarui informasi, serta fitur pencarian canggih dan filter berdasarkan jenis usaha atau status operasional. Data yang terkumpul juga dapat diekspor ke format CSV untuk analisis lebih lanjut.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Selain itu, website ini dilengkapi dengan dashboard dan laporan interaktif. Dashboard menyajikan ringkasan statistik penting secara <em>real-time</em>, seperti total UMKM, UMKM aktif, dan penyerapan tenaga kerja. Visualisasi sederhana menunjukkan sebaran UMKM berdasarkan jenis dan kategori usaha, membantu identifikasi sektor dominan. Kemampuan untuk mengunduh laporan statistik dalam format teks juga tersedia, memberikan gambaran komprehensif tentang ekosistem UMKM di RW 04.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Kehadiran Sistem Pendataan UMKM RT/RW ini diharapkan membawa dampak positif yang signifikan. Efisiensi pendataan akan meningkat drastis, menggantikan metode manual dengan sistem digital yang terpusat. Pengurus RW dapat membuat keputusan yang lebih tepat terkait program pembinaan atau bantuan UMKM berdasarkan data yang akurat dan terkini. Lebih jauh lagi, dengan data yang terorganisir, potensi UMKM dapat lebih mudah diidentifikasi, membuka peluang untuk pelatihan, pendampingan, atau akses ke pasar yang lebih luas, sekaligus mendorong inovasi dalam produk, layanan, atau strategi pemasaran.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        Proyek ini merupakan contoh nyata bagaimana inovasi digital dapat memberdayakan komunitas di tingkat lokal, mendorong pertumbuhan ekonomi, dan meningkatkan kesejahteraan warga.
+      </p>
+      `,
+      images: [
+        {
+          src: "/images/article-images/umkm-dashboard-preview-large.png",
+          alt: "Dashboard Sistem Pendataan UMKM",
+        },
+      ],
     },
   ]
 
@@ -327,6 +1047,9 @@ export default function Component() {
           <Link href="#pelaksanaan-multi-1" className="text-gray-700 hover:text-[#e63946] font-medium" prefetch={false}>
             Pelaksanaan Multi 1
           </Link>
+          <Link href="#luaran-kegiatan" className="text-gray-700 hover:text-[#e63946] font-medium" prefetch={false}>
+            Luaran Kegiatan
+          </Link>
           <Link href="#anggota-kelompok" className="text-gray-700 hover:text-[#e63946] font-medium" prefetch={false}>
             Anggota Kelompok
           </Link>
@@ -359,6 +1082,9 @@ export default function Component() {
                 prefetch={false}
               >
                 Pelaksanaan Multi 1
+              </Link>
+              <Link href="#luaran-kegiatan" className="text-gray-800 hover:text-[#e63946] font-medium" prefetch={false}>
+                Luaran Kegiatan
               </Link>
               <Link
                 href="#anggota-kelompok"
@@ -535,24 +1261,24 @@ export default function Component() {
                     pemantauan laporan kegiatan, serta analisis statistik untuk mendukung pengembangan UMKM lokal.
                   </p>
                   <div className="space-y-4 mb-8">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-[#e63946] rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-gray-600">Pendaftaran UMKM yang mudah dan terintegrasi</p>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-[#e63946] rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-gray-600">Pemantauan laporan kegiatan secara real-time</p>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-[#e63946] rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-gray-600">Analisis statistik untuk pengembangan UMKM</p>
-                    </div>
+                    <div className="w-2 h-2 bg-[#e63946] rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-600">Pendaftaran UMKM yang mudah dan terintegrasi</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-[#e63946] rounded-full mt-2 flex-shrink-0"></div>
+                    <p className className="text-gray-600">
+                      Pemantauan laporan kegiatan secara real-time
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-[#e63946] rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-600">Analisis statistik untuk pengembangan UMKM</p>
                   </div>
                   <Button
                     asChild
                     className="bg-[#e63946] hover:bg-[#d62839] text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    <Link href="https://testing1umkm.netlify.app/" target="_blank" rel="noopener noreferrer">
+                    <Link href="https://pendataanumkmkel5undip.netlify.app/" target="_blank" rel="noopener noreferrer">
                       Kunjungi Sistem Pendataan UMKM
                     </Link>
                   </Button>
@@ -618,40 +1344,90 @@ export default function Component() {
               ))}
             </div>
 
-            {/* Pendataan Digital & Pembukuan UMKM Section */}
+            {/* Pendataan Digital & Pembukuan UMKM - New Structure */}
             <h3 className="text-3xl font-bold text-gray-900 mb-8">Pendataan Digital & Pembukuan UMKM</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-              {umkmDigitalAndBookkeepingActivities.map((activity, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInAnimationVariants}
-                  initial="initial"
-                  whileInView="animate"
-                  viewport={{ once: true }}
-                  custom={index}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Card className="p-4 text-left h-full flex flex-col justify-between overflow-hidden">
-                    <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden">
-                      <ImageWithBlur
-                        src={activity.src || "/placeholder.svg"}
-                        alt={activity.title}
-                        width={300}
-                        height={160}
-                      />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{activity.title}</h3>
-                    <p className="text-gray-600 text-sm">{activity.description}</p>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+            {umkmData.map((group, groupIndex) => (
+              <div key={`rw-${groupIndex}`} className="mb-12">
+                <h4 className="text-2xl font-bold text-gray-800 mb-6">UMKM di RW {group.rw}</h4>
+                <div className="grid grid-cols-1 gap-8">
+                  {" "}
+                  {/* Changed from md:grid-cols-2 to grid-cols-1 */}
+                  {group.umkms.map((umkm, umkmIndex) => (
+                    <motion.div
+                      key={`umkm-${groupIndex}-${umkmIndex}`}
+                      variants={fadeInAnimationVariants}
+                      initial="initial"
+                      whileInView="animate"
+                      viewport={{ once: true }}
+                      custom={umkmIndex}
+                      className="text-left"
+                    >
+                      <Card className="p-6 h-full flex flex-col justify-between shadow-md rounded-xl bg-white">
+                        <h5 className="text-xl font-semibold text-gray-900 mb-4">{umkm.name}</h5>
+                        {umkm.activities.length > 0 ? (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {" "}
+                            {/* This grid is for activities within each UMKM */}
+                            {umkm.activities.map((activity, activityIndex) => (
+                              <div key={`activity-${groupIndex}-${umkmIndex}-${activityIndex}`}>
+                                {activity.type === "image" ? (
+                                  <Image
+                                    src={activity.src || "/placeholder.svg"}
+                                    alt={activity.title}
+                                    width={300}
+                                    height={200}
+                                    className="rounded-lg object-cover w-full h-auto"
+                                  />
+                                ) : (
+                                  <Card
+                                    className="overflow-hidden rounded-lg shadow-sm cursor-pointer"
+                                    onClick={() => handleVideoCardClick(activity)}
+                                  >
+                                    <CardContent className="p-0 relative h-40">
+                                      <ImageWithBlur
+                                        src={activity.thumbnail || "/placeholder.svg"}
+                                        alt={`Thumbnail ${activity.title}`}
+                                        width={300}
+                                        height={160}
+                                      />
+                                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                        <PlayCircle className="h-12 w-12 text-white/80" />
+                                      </div>
+                                    </CardContent>
+                                  </Card>
+                                )}
+                                <p className="text-sm text-gray-600 mt-2">{activity.title}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-gray-500 italic">
+                            Foto dan video kegiatan untuk UMKM ini akan segera ditambahkan.
+                          </p>
+                        )}
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-            {/* Video Kegiatan & Edukasi Digital Section */}
-            <h3 className="text-3xl font-bold text-gray-900 mb-8">Video Kegiatan & Edukasi Digital</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {umkmVideoActivities.map((activity, index) => (
+        {/* Luaran Kegiatan Kami Section */}
+        <section className="py-20 px-4 md:px-10 bg-gradient-to-br from-slate-100 to-blue-50" id="luaran-kegiatan">
+          <div className="max-w-6xl mx-auto text-center">
+            <motion.h2
+              className="text-4xl font-bold text-gray-900 mb-12"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Luaran Kegiatan Kami
+            </motion.h2>
+            <div className="grid grid-cols-1 gap-8">
+              {outputActivities.map((article, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInAnimationVariants}
@@ -659,25 +1435,13 @@ export default function Component() {
                   whileInView="animate"
                   viewport={{ once: true }}
                   custom={index}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
                 >
-                  <Card
-                    className="overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
-                    onClick={() => handleVideoCardClick(activity)} // Click handler for video
-                  >
-                    <CardContent className="p-0 relative h-96">
-                      <ImageWithBlur
-                        src={activity.thumbnail || "/placeholder.svg"} // Use thumbnail here
-                        alt={`Thumbnail ${activity.title}`}
-                        width={300}
-                        height={400}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4 text-white">
-                        <h3 className="font-bold text-xl mb-1">{activity.title}</h3>
-                        <p className="text-sm opacity-80">{activity.description}</p>
-                      </div>
-                    </CardContent>
+                  <Card className="p-8 shadow-lg rounded-xl bg-white text-left">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4">{article.title}</h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Oleh: {article.author} | Tanggal: {article.date}
+                    </p>
+                    <div dangerouslySetInnerHTML={{ __html: article.content }} />
                   </Card>
                 </motion.div>
               ))}
@@ -686,7 +1450,7 @@ export default function Component() {
         </section>
 
         {/* Anggota Kelompok Section */}
-        <section className="py-20 px-4 md:px-10 bg-gradient-to-br from-slate-100 to-indigo-50" id="anggota-kelompok">
+        <section className="py-20 px-4 md:px-10 bg-gradient-to-br from-blue-50 to-indigo-50" id="anggota-kelompok">
           <div className="max-w-6xl mx-auto text-center">
             <motion.h2
               className="text-4xl font-bold text-gray-900 mb-12"
@@ -722,7 +1486,9 @@ export default function Component() {
                     <h3 className="font-bold text-lg text-gray-900 mb-1">{member.name}</h3>
                     <p className="text-sm text-gray-700">{member.faculty}</p>
                     <p className="text-sm text-gray-600 mb-2">{member.major}</p>
-                    <p className="text-xs text-gray-500">NIM: {member.nim}</p>
+                    <p className className="text-xs text-gray-500">
+                      NIM: {member.nim}
+                    </p>
                   </Card>
                 </motion.div>
               ))}
@@ -826,6 +1592,11 @@ export default function Component() {
               <li>
                 <Link href="#pelaksanaan-multi-1" className="hover:text-[#e63946]">
                   Pelaksanaan Multi 1
+                </Link>
+              </li>
+              <li>
+                <Link href="#luaran-kegiatan" className="hover:text-[#e63946]">
+                  Luaran Kegiatan
                 </Link>
               </li>
               <li>
